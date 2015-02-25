@@ -1,0 +1,55 @@
+<div class="messages">
+
+	<!-- new message sound element-->
+	<audio id="new-message-sound" class="hidden">
+  	<source src="/audio/new-message.mp3"></source>
+  </audio>
+  <!-- end of new message sound element -->
+	
+	<h1 ng-show="loadChat" class="message-to col-xs-12 col-md-10 col-md-offset-1"> {{ data.to[0].username }} </h1>
+	
+	<div class="messages-box col-xs-12 col-md-10 col-md-offset-1 animated pulse" ng-model="conversationId" scroll="conversation.messages">
+		
+		<img ng-show="!loadChat" src="/images/preloader-2.gif" alt="preloader" class="preloader" />
+		
+		<ul class="messages-list clearfix" ng-model="data.to">
+		
+			<li ng-repeat="message in conversation.messages track by $index"
+				ng-class="{'pull-right current-user-list' : currentUserId == message.author._id || currentUserId == message.author}"
+				class="clearfix animated bounceInDown">
+				
+				<div class="message-wrapper">
+
+					<p> {{ message.message}}</p>
+					<span class="pull-right badge"> {{ message.date | timeAgo }}</span>
+				
+				</div> <!-- End of message-wrapper -->
+			
+			</li>
+
+		</ul>
+	
+	</div> <!-- End of messages-box -->
+
+</div>  <!-- End of messages -->
+
+
+<div class="send-message-wrapper col-xs-12">
+
+	<div class="row">
+		
+		<div class="col-xs-12 col-md-8 col-md-offset-1">
+  	<input type="text" ng-model="data.newMessage" ng-keyup="$event.keyCode == 13 && sendNewMessage()"class="form-control" placeholder="enter message">
+    </div> <!-- End of col-xs-12 -->
+        
+    <div class="col-xs-12 col-md-2">
+			<button class="btn btn-success btn-block glyphicon glyphicon-send" ng-click="sendNewMessage()">  </button>
+		</div> <!-- end of col-xs-12 -->
+	
+	</div> <!-- End of row -->
+
+</div> <!-- End of send-message-wrapper -->
+
+
+
+

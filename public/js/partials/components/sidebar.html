@@ -1,0 +1,31 @@
+<div class="users-wrapper">
+
+
+<ul class="list-group">
+  <li class="list-group-item disabled">
+    <span class="user-name-text"> Users </span>
+  </li>
+  <li ng-repeat="user in userContacts track by $index"
+    ng-click="loadConversation(user._id)" class="list-group-item" ng-class="user._id">
+      <img src="http://placehold.it/40/40" class="img-circle">
+    <span class="user-name-text"> {{ user.username }} </span>
+    <span class="new-message-label label label-danger pull-right animated bounce hidden"> new message </span>
+  </li>  
+</ul>
+
+</div>
+
+
+<div class="group-chat-wrapper">
+
+<ul class="list-group">
+  <li class="list-group-item disabled">
+  	<span class="user-name-text"> Groups </span>
+  </li>
+  <li class="list-group-item">
+  	<img src="http://placehold.it/40/40" class="img-circle">
+  	<span class="user-name-text"> levanigls </span>
+  </li>
+</ul>
+
+</div>

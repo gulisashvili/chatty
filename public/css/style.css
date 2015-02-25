@@ -1,0 +1,412 @@
+/* bootstrap overrides*/
+
+.form-control, input {
+	border-width: 2px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	border: none;
+	border-radius: 2px;
+	font-weight: bold;
+	background: rgba(255,255,255,0.2);
+	color: #ecf0f1;
+	opacity: 1;
+}
+
+
+.navbar-brand {
+	margin-left: 160px !important;
+	position: relative;
+	right: 80px;
+}
+
+
+
+.dropdown-menu>li>a {
+	color: #2c3e50 !important;
+}
+
+.dropdown-menu>li>a:hover {
+	color: #ecf0f1 !important;
+}
+.navbar {
+	border-radius: 0;
+	padding-bottom: 0;
+	margin-bottom: 5px;
+}
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+a {
+	color: #95a5a6;
+	font-weight: bold !important;
+	font-weight: 400;
+}
+
+
+.navbar-default {
+	background: rgba(255,255,255, .2) !important;
+}
+
+a:hover,
+a:active,
+a:link,
+a:visited {
+	color: #ecf0f1 !important;
+}
+
+
+
+/* end of bootstrap overrides*/
+
+
+
+html, body {
+	height: 100%;
+	/*font-family: 'Source Sans Pro', sans-serif;*/
+	/*font-family: 'Vollkorn', serif;*/
+
+
+
+}
+
+#main-wrapper {
+	width: 100%;
+	height: 100%;
+	/*background: url(../images/background-2.jpg);*/
+	/*background: url(http://www.techlifeblog.com/wp-content/uploads/2013/09/wall3.jpg);*/
+	background: url(http://fc02.deviantart.net/fs71/f/2012/010/8/7/big_warm_blur_by_mgrishin-d4lw7ww.jpg);
+
+	
+
+	-webkit-background-size: 100% 100%;
+			background-size: 100% 100%;
+	-webkit-background-attachment: fixed;
+			background-attachment: fixed;
+
+}
+
+
+.form-wrapper {
+	position: relative;
+  	/*top: 50%;*/
+  	transform: translateY(20%);
+  	text-align: center;
+  	color: #ecf0f1;
+}
+
+
+
+.logo {
+	font-size: 60px;
+}
+
+
+.logo-text:hover .logo {
+	-webkit-transform: rotate(360deg);
+			transform: rotate(360deg);
+}
+
+
+.form-wrapper button,
+.form-wrapper h1 {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.form-wrapper button {
+	transition: background-color .4s ease-in-out;
+
+}
+
+.form-wrapper h3 {
+	padding: 20px 10px;
+	letter-spacing: 1px;
+}
+
+.form-wrapper h1 {
+	letter-spacing: 15px;
+}
+
+.form-wrapper a.user-anchor {
+	font-size: 20px;
+	margin-left: 10px;
+	letter-spacing: 0px;
+}
+
+.search-user-results{
+	width: 310px;
+	height: 200px;
+	background: rgba(255,255,255, .6);
+	position: absolute;
+	z-index: 1000;
+}
+
+
+.all-users-wrapper span {
+	cursor: pointer;
+}
+
+.all-users-wrapper .list-group {
+	max-height: 350px;
+	overflow-y: auto;
+}
+
+.search-user-input {
+	margin: 5px;
+	border: 1px solid #e3e3e3;
+	margin: 10px 0 30px 0;
+}
+
+.messages-list li {
+	list-style: none;
+	color: #ecf0f1;
+	background: #16a085;
+	font-weight: bold;
+	border-radius: 10px;
+	padding: 12px;
+	width: 60%;
+	display: inline-block;
+	margin: 10px;
+}
+
+.messages-list {
+	padding: 0;
+	margin-top: 13px;
+	text-align: left;
+}
+
+.messages-list li p {
+	/*display: inline-block;*/
+}
+
+.current-user-list {
+	color: #2c3e50 !important;
+	background: #ecf0f1 !important;
+}
+
+
+.new-message-label {
+	margin-top: 13px;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+
+
+
+
+#home-wrapper {
+	width: 100%;
+	height: 100%;
+	/*background: #95a5a6;*/
+	background: url(http://desktop.freewallpaper4.me/view/original/5952/blur.jpg);
+	color: #e3e3e3;
+}
+
+#home-wrapper .logo {
+	font-size: 40px;
+	line-height: 50%;
+	transition: .4s linear;
+}
+
+#home-wrapper .logo:hover {
+	transform: rotate(360deg);
+}
+
+.search-user input {
+	-webkit-transition: .3s ease-in-out;
+			transition: .3s ease-in-out;
+	
+	background: rgba(255,255,255,0.5);
+	color: #e3e3e3;
+	width: 100% !important;
+}
+.search-user input:focus {
+	background: rgba(255,255,255, 0.3);
+	color: #2c3e50;
+	width: 155% !important;
+
+}
+
+
+.user-thumbnail {
+	/*padding: 5px;*/
+	margin-right: 15px;
+}
+
+/* Sidebar */
+
+#sidebar {
+	width: 25%;
+	height: 90.5%;
+	background: rgba(255,255,255, 0.2);
+}
+
+#sidebar .badge {
+	background: #e74c3c;
+	opacity: 1;
+	margin-left: 20px;
+	float: right;
+	margin-top: 13px;
+}
+
+
+
+
+
+
+.users.wrapper .list-group {
+	border: none;
+	border-radius: 2px;
+
+}
+
+.users-wrapper .list-group-item {
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid rgba(255,255,255, .1);
+}
+
+.users-wrapper .list-group-item:hover {
+	background: rgba(255,255,255, 0.3);
+}
+
+.users-wrapper .list-group-item.disabled {
+	cursor: pointer !important;
+}
+
+
+.users-wrapper,
+.group-chat-wrapper {
+	height: 46%;
+	overflow-y: scroll;
+}
+
+.users-wrapper {
+	margin-bottom: 3%;
+}
+
+.user-name-text {
+	margin-left: 15px;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+
+
+::-webkit-scrollbar {
+	display: none;	
+}
+
+/*::-webkit-scrollbar-thumb {
+	background: rgba(255,255,255, 0.3);
+}
+*/
+
+
+
+
+
+
+
+
+
+
+/* End of Sidebar */
+
+#sidebar {
+	float: left;
+}
+
+#messages-wrapper {
+	float: right;
+}
+
+/* Messages Wrapper */
+
+#messages-wrapper {
+	width: 74%;
+	border-top-left-radius: 3px;
+	height: 90.5%;
+	background: rgba(255,255,255, .5);
+}
+
+#messages-wrapper .messages {
+	height: 85%;
+	width: 100%;
+	margin-bottom: 1%;
+	margin-top: 1%;
+}
+
+#messages-wrapper .messages-box {
+	background: #FFF;
+	height: 90%;
+	border-radius: 2px;
+	overflow-y: auto;
+	position: relative;
+	z-index: 1;
+}
+
+#messages-wrapper .send-message-wrapper {
+	height: 5%;
+	/*width: 100%;*/
+
+}
+
+.message-to {
+	margin-top: 0;
+	background: rgba(0,0,0, 0.3);
+	padding: 5px;
+	text-align: center;
+	font-size: 22px;
+	font-weight: bold;
+	border-radius: 3px;
+}
+
+.message-wrapper p {
+	word-break: break-word;
+}
+
+.preloader {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+
+.messages-list-wrapper .modal-body {
+	padding: 0;
+}
+
+.messages-list-wrapper .media {
+	max-height: 70px;
+	margin: 15px;
+}
+
+
+
+/* End of Messages Wrapper*/
+
+
+
+
+
+
+
+
+
+
+/* media queries */
+@media screen and (max-width: 728px) {
+	.form-wrapper {
+	  	transform: translateY(5%);
+	}
+	.container {
+		padding: 0;
+	}
+}
+
+
+
+/* end of media queris */

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  
+  #main-wrapper
+    .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2.form-wrapper
+      h1.logo
+        span.glyphicon.glyphicon-fire
+      h1 Chatty
+      h3 Sign Up on Chatty
+      form.col-xs-12.col-md-8.col-md-offset-2(action="register", method="POST")
+        .form-group.animated.bounce
+          input(type="text", class="form-control", name="username", id="exampleInputEmail1", placeholder="username")
+        .form-group.animated.bounce
+          input(type="email", class="form-control", name="email", id="exampleInputEmail1", placeholder="email")
+        .form-group.animated.bounce
+          input(type="password", class="form-control", name="password", id="exampleInputPassword1", placeholder="password")
+        .form-group.animated.bounce
+          button(type="submit", class="btn btn-info btn-block") Sign Up
+        .form-group.animated.bounce
+          a.user-anchor(href="/login") already a member?
+
+

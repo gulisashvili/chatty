@@ -1,0 +1,127 @@
+<nav ng-controller="HeaderCTRL" class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        
+        <span class="logo-text">
+        <span class="logo glyphicon glyphicon-fire"></span> Chatty</span>
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="navbar-form navbar-left" role="search">
+
+        <div class="form-group search-user">
+          <input type="text" class="form-control" ng-model="searchUserVal" ng-focus="searchUser(searchUserVal)" ng-change="searchUser(searchUserVal)" placeholder="search user">
+        </div>
+        <div ng-show="userResult" class="search-user-results">
+          <ul class="list-group">
+            <li class="list-group-item" ng-click="addContact(userResult)" style="color: #000;"> {{ userResult.username }} - {{ userResult.email }} </li>
+          </ul>
+        </div>
+      
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="" ng-click="openMessagesModal('md')" class="glyphicon glyphicon-envelope"></a>
+          </li>
+          <li>
+            <a href="" ng-click="open('md')" class="glyphicon glyphicon-th-list"></a>
+          </li>
+
+         <li class="dropdown" dropdown on-toggle="toggled(open)">
+          <a href class="dropdown-toggle glyphicon glyphicon-oil" dropdown-toggle>  </a>
+          <ul class="dropdown-menu animated bounceIn">
+            <li><a href> Create Group Chat</a></li>
+          </ul>
+        </li>
+
+           <li class="dropdown" dropdown on-toggle="toggled(open)">
+              <a href class="dropdown-toggle" dropdown-toggle>
+                <span class="glyphicon glyphicon-user"> {{ user }} </span>
+              </a>
+              <ul class="dropdown-menu animated swing">
+                <li><a href> Profile Settings</a></li>
+                <li><a href="/logout"> Logout </a></li>
+              </ul>
+            </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+<!-- All Users Modal -->
+  <script type="text/ng-template" id="all-users.html">
+    <div class="all-users-wrapper clearfix">
+      <div class="modal-header">
+        <h3 class="modal-title"> All Users </h3>
+      </div>
+      
+      <div class="modal-body">
+        <input type="text" class="form-control search-user-input" placeholder="search user" ng-model="searchUserFilter">
+
+        
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="user in users | filter:searchUserFilter track by $index" ng-hide="currentUserId == user._id"> 
+            <strong> {{ user.username }} </strong>
+            <span ng-show="!hasInContacts(user._id)" ng-click="addToContacts(user)" class="label label-success pull-right"> add to contacts </span>
+            <span ng-show="hasInContacts(user._id)"ng-click="removeContact(user)" class="label label-danger pull-right"> remove from contacts</span>
+          </li>
+        </ul>
+      
+      </div>
+      
+      <div class="modal-footer">
+          <button class="btn btn-warning" ng-click="done()"> Done </button>
+      </div>
+    </div>
+
+  </script>
+
+<!-- End of Users Modal -->
+
+
+<!-- Messages Modal -->
+
+  <script type="text/ng-template" id="messages-list.html">
+    <div class="messages-list-wrapper clearfix">
+      <div class="modal-header">
+        <h3 class="modal-title"> Messages </h3>
+      </div>
+    
+      <div class="modal-body">
+        
+        <div class="media" ng-repeat="conversation in allConversations track by $index">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object img-circle" src="http://placehold.it/70/70" />
+            </a>
+          </div> 
+          <div class="media-body">
+            <h4 class="media-heading"> {{ conversation.members[0].username }}</h4>
+              <span>
+                {{ conversation.messages[conversation.messages.length-1].message }}
+              </span>
+          </div>
+        
+        </div> 
+
+      
+      </div>
+    
+      <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="done()"> Done </button>
+      </div>
+  
+    </div>
+
+  </script>
+
+<!-- End of Messages Modal -->
+</nav>
