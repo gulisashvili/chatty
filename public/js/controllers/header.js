@@ -43,6 +43,23 @@ angular.module('Chatty')
     });
   };
 
+  
+    $scope.openGroupChatModal = function (size) {
+
+      var modalInstance = $modal.open({
+        templateUrl: 'group-chat.html',
+        controller: 'GroupChatCTRL',
+        size: size,
+        resolve: {
+          allUsers: function () {
+            User.getAllUsers(function(users) {
+              return users;            
+            })
+          }
+        }
+      });
+    };
+
 
 
     $scope.addContact = function(newContact) {
@@ -71,15 +88,11 @@ angular.module('Chatty')
   })
 
 
-.controller('AllUsersModalCTRL', function($rootScope, $scope, $modalInstance, User, $window) {
+.controller('AllUsersModalCTRL', function($rootScope, $scope, User, $window, $modalInstance) {
   
   User.getAllUsers(function(users) {
     $scope.users = users;
   });
-
-  $scope.done = function () {
-    $modalInstance.dismiss('cancel');
-  };
 
   $scope.addToContacts = function(newContact) {
     var data = {
@@ -95,6 +108,10 @@ angular.module('Chatty')
       }
     });
   
+  };
+
+  $scope.done = function() {
+    $modalInstance.dismiss('cancel');
   };
 
   $scope.removeContact = function(contact) {
@@ -117,19 +134,54 @@ angular.module('Chatty')
 })
 
 
-.controller('AllMessagesCTRL', function($scope, Conversation, $modalInstance) {
+.controller('AllMessagesCTRL', function($scope, Conversation , $modalInstance) {
 
   Conversation.getConversationsByMember($scope.currentUserId, function(conversations) {
     $scope.allConversations = conversations;
   });
+
+  $scope.done = function() {
+    $modalInstance.dismiss('cancel');
+  };
    
+
+})
+
+
+.controller('GroupChatCTRL', function($scope, User, Conversation, $modalInstance) {
+  $scope.selectedUsers = [];
+  $scope.selectedUsers[0] = $scope.currentUserId;
+
+
   $scope.done = function() {
     $modalInstance.dismiss('cancel');
   };
 
+  User.getAllUsers(function(users) {
+    $scope.users = users;
+  });
 
 
+  $scope.toggleSelected = function(userId, selected) {
+    if(selected) {
+      $scope.selectedUsers.push(userId);
+    } else if(!selected){
+      var index = $scope.selectedUsers.indexOf(userId);
 
+      if(index > -1) {
+        $scope.selectedUsers.splice(index, 1);
+      }
+    }
+  };
 
+  $scope.createGroupChat = function() {
+    if($scope.selectedUsers.length > 2) {
+      Conversation.createConversation($scope.selectedUsers, function(result) {
+        console.log("returned data : ", result);
+      });
+    } else {
+      alert("ooops minimum 3 members are required");
+    }
+  };
 
 });

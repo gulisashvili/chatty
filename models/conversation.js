@@ -35,7 +35,29 @@ ConversationSchema.statics.getConversationsByMember = function(member, cb) {
   	});
 };
 
+ConversationSchema.statics.getGroupConversationsByMember = function(member, cb) {
+	return this.find({members: member, $where: "this.members.length > 2" })
+		.populate('members', 'username email')
+	  .exec(function (err, conversations) {
+	  	console.log(err);
+	    if (err) {
+	      return cb(err, null);
+	    } else {
+	      return cb(null, conversations);
+	    }          
+  	});
+};
 
+
+
+
+
+
+
+
+ConversationSchema.statics.getConversation = function(conversationId, cb) {
+  return this.findOne( { _id: conversationId}, cb);
+};
 
 ConversationSchema.statics.getConversation = function(conversationId, cb) {
   return this.findOne( { _id: conversationId}, cb);
@@ -44,13 +66,11 @@ ConversationSchema.statics.getConversation = function(conversationId, cb) {
 ConversationSchema.statics.createNew = function(members, cb) {
 	var Conversation = this;
 	var newConversation = new Conversation();
-	console.log("From Mongo, ", members);
 
 	_.each(members, function(member) {
 		newConversation.members.push(member);
 	});
 
-	console.log("after thisssssss , ", newConversation);
 	newConversation.save(cb);
 };
 

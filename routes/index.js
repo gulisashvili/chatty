@@ -83,6 +83,9 @@ router.post('/register', function(req, res) {
 //   conversation.save();
 
 // });
+
+
+
 router.get('/login', auth.checkAuth, function(req, res) {
   res.render('login');
 });

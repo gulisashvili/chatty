@@ -1,5 +1,5 @@
 angular.module('Chatty', ['ngRoute','ui.bootstrap'])
-  .run(function($rootScope, User, socket) {
+  .run(function($rootScope, User, Conversation,  socket) {
 
     $rootScope.hasInContacts = function(contactId) {
       return _.contains($rootScope.currentUser.contacts, contactId);
@@ -17,11 +17,16 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
         User.getUserContacts($rootScope.currentUserId, function(data) {
           $rootScope.userContacts = data;
         });
+
+
+        Conversation.getGroupConversationsByMember($rootScope.currentUserId, function(conversations) {
+          $rootScope.groupConversations = conversations;
+          console.log("dzoia ", $rootScope.groupConversations);
+        });
       
       });
       
     };
-
 
   
   })

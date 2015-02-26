@@ -16,15 +16,14 @@
 </div>
 
 
-<div class="group-chat-wrapper">
+<div class="users-wrapper">
 
 <ul class="list-group">
   <li class="list-group-item disabled">
-  	<span class="user-name-text"> Groups </span>
+  	<span class="user-name-text"> Group Conversations</span>
   </li>
-  <li class="list-group-item">
-  	<img src="http://placehold.it/40/40" class="img-circle">
-  	<span class="user-name-text"> levanigls </span>
+  <li ng-repeat="conversation in groupConversations track by $index" class="list-group-item" ng-click="loadConversation(conversation._id)">
+  	<span ng-repeat="member in conversation.members track by $index"> {{ member.username }} </span>
   </li>
 </ul>
 

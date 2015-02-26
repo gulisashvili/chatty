@@ -45,6 +45,38 @@ router.get('/by/:member', function(req, res) {
 
 });
 
+router.post('/create/new/conversation', function(req, res) {
+  var membersArr = req.body.members;
+  if(membersArr.length > 2) {
+    Conversation.createNew(membersArr, function(err, conversation) {
+      if(err) {
+        res.sendStatus(400);
+      } else if(conversation) {
+        res.json(conversation);
+      }
+    });
+  } else {
+    res.send(403, {error: "At least 3 members are required"});
+  }
+});
+
+
+
+router.get('/by/group/:member', function(req, res){
+  if(req.params) {
+    var member = req.params.member;
+    Conversation.getGroupConversationsByMember(req.params.member, function(err, conversations) {
+      if(err) {
+        res.sendStatus(409);
+      } else if(conversations) {
+        res.json(conversations);
+      }
+    });
+  } else {
+    res.sendStatus(400);
+  }
+}); 
+
 
 
 

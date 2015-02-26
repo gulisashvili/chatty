@@ -38,10 +38,8 @@
           </li>
 
          <li class="dropdown" dropdown on-toggle="toggled(open)">
-          <a href class="dropdown-toggle glyphicon glyphicon-oil" dropdown-toggle>  </a>
-          <ul class="dropdown-menu animated bounceIn">
-            <li><a href> Create Group Chat</a></li>
-          </ul>
+          <a href="" ng-click="openGroupChatModal()" class="dropdown-toggle glyphicon glyphicon-oil">  </a>
+          
         </li>
 
            <li class="dropdown" dropdown on-toggle="toggled(open)">
@@ -124,4 +122,34 @@
   </script>
 
 <!-- End of Messages Modal -->
+
+
+<!-- GroupChat Modal -->
+
+  <script type="text/ng-template" id="group-chat.html">
+    <div class="clearfix">
+      <div class="modal-header">
+        <h3 class="modal-title"> Create Group Chat </h3>
+      </div>
+    
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item"  ng-class="{'selected' : selected}" ng-repeat="user in users track by $index" ng-click="selected = !selected; toggleSelected(user._id, selected)" > {{ user.username}}
+          <span ng-if="selected" class="glyphicon glyphicon-ok pull-right"></span>
+           </li>
+        </ul>
+
+      
+      </div>
+    
+      <div class="modal-footer">
+        <button class="btn btn-success" ng-click="createGroupChat()"> Create </button>
+        <button class="btn btn-primary" ng-click="done()"> Done </button>
+      </div>
+  
+    </div>
+
+  </script>
+
+<!-- End of GroupChat Modal -->
 </nav>
