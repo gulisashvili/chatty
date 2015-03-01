@@ -51,7 +51,7 @@ a {
 
 
 .navbar-default {
-	background: rgba(255,255,255, .2) !important;
+	background: rgba(255,255,255, .1) !important;
 }
 
 a:hover,
@@ -81,7 +81,7 @@ html, body {
 	height: 100%;
 	/*background: url(../images/background-2.jpg);*/
 	/*background: url(http://www.techlifeblog.com/wp-content/uploads/2013/09/wall3.jpg);*/
-	background: url(http://fc02.deviantart.net/fs71/f/2012/010/8/7/big_warm_blur_by_mgrishin-d4lw7ww.jpg);
+	/*background: url(http://fc02.deviantart.net/fs71/f/2012/010/8/7/big_warm_blur_by_mgrishin-d4lw7ww.jpg);*/
 
 	
 
@@ -164,6 +164,10 @@ html, body {
 	margin: 10px 0 30px 0;
 }
 
+.text-message {
+	padding: 3px;
+}
+ 
 .messages-list li {
 	list-style: none;
 	color: #ecf0f1;
@@ -198,14 +202,21 @@ html, body {
 	font-family: sans-serif;
 }
 
-
+#background {
+	width: 100%;
+	position: absolute;
+	min-height: 100%;
+	/*height: 100%;*/
+	z-index: -90;
+	background: #2c3e50;
+}
 
 
 #home-wrapper {
 	width: 100%;
 	height: 100%;
 	/*background: #95a5a6;*/
-	background: url(http://desktop.freewallpaper4.me/view/original/5952/blur.jpg);
+	/*background: url(http://desktop.freewallpaper4.me/view/original/5952/blur.jpg);*/
 	color: #e3e3e3;
 }
 
@@ -245,7 +256,7 @@ html, body {
 #sidebar {
 	width: 25%;
 	height: 90.5%;
-	background: rgba(255,255,255, 0.2);
+	background: rgba(255,255,255, 0.1);
 }
 
 #sidebar .badge {
@@ -326,6 +337,7 @@ html, body {
 
 #messages-wrapper {
 	float: right;
+	position: relative;
 }
 
 /* Messages Wrapper */
@@ -334,7 +346,7 @@ html, body {
 	width: 74%;
 	border-top-left-radius: 3px;
 	height: 90.5%;
-	background: rgba(255,255,255, .5);
+	background: rgba(255,255,255, .1);
 }
 
 #messages-wrapper .messages {
@@ -356,7 +368,7 @@ html, body {
 #messages-wrapper .send-message-wrapper {
 	height: 5%;
 	/*width: 100%;*/
-
+  margin-top: 20px;
 }
 
 .message-to {
@@ -380,6 +392,14 @@ html, body {
 	left: 0;
 	bottom: 0;
 	right: 0;
+}
+
+.no-conversation-selected {
+	margin: 0 auto;
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+	font-size: 32px;
 }
 
 

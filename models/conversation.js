@@ -9,7 +9,7 @@ var ConversationSchema = new Schema({
 
 
 ConversationSchema.statics.getConversationByMembers = function(members, cb) {
-  return this.findOne({members: {$all: members}})
+  return this.findOne({members: {$all: members}, $where: "this.members.length == 2"})
   	.populate('members', 'username email')
 	  .populate('messages.author', 'username email')
 	  .exec(function (err, conversation) {
@@ -56,11 +56,16 @@ ConversationSchema.statics.getGroupConversationsByMember = function(member, cb) 
 
 
 ConversationSchema.statics.getConversation = function(conversationId, cb) {
-  return this.findOne( { _id: conversationId}, cb);
-};
+  return this.findOne( { _id: conversationId})
+  	.populate('members', 'username email')
+	  .exec(function (err, conversation) {
+	    if (err) {
+	      return cb(err, null);
+	    } else {
+	      return cb(null, conversation);
+	    }          
+  	});
 
-ConversationSchema.statics.getConversation = function(conversationId, cb) {
-  return this.findOne( { _id: conversationId}, cb);
 };
 
 ConversationSchema.statics.createNew = function(members, cb) {

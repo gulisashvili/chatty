@@ -78,6 +78,22 @@ router.get('/by/group/:member', function(req, res){
 }); 
 
 
+router.get('/:conversationId', function(req, res) {
+  if(req.params.conversationId) {
+    var id = req.params.conversationId;
+    Conversation.getConversation(id, function(err, conversation) {
+      if(err) {
+        res.sendStatus(409);
+      } else if(conversation) {
+        res.json(conversation);
+      }
+    });
+  } else {
+    res.sendStatus(400);
+  }
+});
+
+
 
 
 

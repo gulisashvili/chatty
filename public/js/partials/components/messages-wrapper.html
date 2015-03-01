@@ -1,5 +1,5 @@
 <div class="messages">
-
+	
 	<!-- new message sound element-->
 	<audio id="new-message-sound" class="hidden">
   	<source src="/audio/new-message.mp3"></source>
@@ -11,6 +11,7 @@
 	<div class="messages-box col-xs-12 col-md-10 col-md-offset-1 animated pulse" ng-model="conversationId" scroll="conversation.messages">
 		
 		<img ng-show="!loadChat" src="/images/preloader-2.gif" alt="preloader" class="preloader" />
+		<!-- <strong ng-show="!loadChat" class="preloader"> No Conversation Selected </strong> -->
 		
 		<ul class="messages-list clearfix" ng-model="data.to">
 		
@@ -19,8 +20,9 @@
 				class="clearfix animated bounceInDown">
 				
 				<div class="message-wrapper">
+					<p class="badge"> {{ message.author.username || message.username }}</p>
 
-					<p> {{ message.message}}</p>
+					<p class="text-message"> {{ message.message}}</p>
 					<span class="pull-right badge"> {{ message.date | timeAgo }}</span>
 				
 				</div> <!-- End of message-wrapper -->
@@ -31,10 +33,7 @@
 	
 	</div> <!-- End of messages-box -->
 
-</div>  <!-- End of messages -->
-
-
-<div class="send-message-wrapper col-xs-12">
+	<div class="send-message-wrapper col-xs-12">
 
 	<div class="row">
 		
@@ -52,4 +51,5 @@
 
 
 
+</div>  <!-- End of messages -->
 

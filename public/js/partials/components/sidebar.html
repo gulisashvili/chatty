@@ -22,7 +22,7 @@
   <li class="list-group-item disabled">
   	<span class="user-name-text"> Group Conversations</span>
   </li>
-  <li ng-repeat="conversation in groupConversations track by $index" class="list-group-item" ng-click="loadConversation(conversation._id)">
+  <li ng-repeat="conversation in groupConversations track by $index" class="list-group-item" ng-click="loadConversation(null,conversation._id)">
   	<span ng-repeat="member in conversation.members track by $index"> {{ member.username }} </span>
   </li>
 </ul>

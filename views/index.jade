@@ -1,7 +1,7 @@
 extends layout
 
 block content
-
+  #background
   #home-wrapper(ng-app="Chatty" ng-controller="MainCTRL")
     header(ng-include src="'/js/partials/components/header.html'", onload="loadUser()" id="header")
     #sidebar(ng-include src="'/js/partials/components/sidebar.html'")

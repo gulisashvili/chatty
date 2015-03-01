@@ -25,40 +25,57 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
         });
       
       });
-      
     };
 
   
   })
 
   .controller('MainCTRL', function($scope, $log, User, Conversation, socket, $timeout) {
+    $scope.conversationsArr = [];
 
 
 
-    $scope.loadConversation = function(userID) {
-      var data = [];  
-      $scope.data.to = userID;    
-      
-      data.push($scope.currentUserId, userID);
+    $scope.loadConversation = function(userID, conversationId) {
+      if(!userID && conversationId) {
+        console.log("hrere we go")
+        Conversation.getConversationById(conversationId, function(data) {
+          $scope.conversations[data._id] = data;
+          $scope.conversation = $scope.conversations[data._id];
+          $scope.conversationId = data._id;
+          $scope.data.to = $scope.conversation.members.filter(function(user) {
+            return user._id != $scope.currentUserId;
+          });
+          console.log('conv', $scope.conversation)
+          $scope.loadChat = true;
 
-	    Conversation.getConversation(data, function(data) {
-        console.log("dattt", data);
-
-        $scope.conversations[data._id] = data;
-	    	$scope.conversation = $scope.conversations[data._id];
-        console.log($scope.conversation);
-        $scope.conversationId = data._id;
-        $scope.data.to = $scope.conversation.members.filter(function(user) {
-          return user._id != $scope.currentUserId;
         });
-        console.log("after, ", $scope.data.to)
-	    	$scope.loadChat = true;
-	    }); 	
+      } else {
+        console.log("arrr", $scope.conversationsArr)
+          var data = [];  
+          $scope.data.to = userID;    
+          
+          data.push($scope.currentUserId, userID);
 
+          Conversation.getConversation(data, function(data) {
+            console.log("dattt", data);
+
+            $scope.conversations[data._id] = data;
+            $scope.conversation = $scope.conversations[data._id];
+            $scope.conversationId = data._id;
+            $scope.conversationsArr.push(data._id);
+            $scope.data.to = $scope.conversation.members.filter(function(user) {
+              return user._id != $scope.currentUserId;
+            });
+            console.log("after, ", $scope.data.to)
+            $scope.loadChat = true;
+
+    	    }); 
+      }	
     };
 
     $scope.sendNewMessage = function() {      
       if ($scope.data.newMessage) {
+        $scope.data.newMessage.trim();
         var data = {
           currentUserId: $scope.currentUserId,
           conversationId: $scope.conversationId,
@@ -72,6 +89,8 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
           } else if(result) {
             var messageArray = result.messages;
             var message = messageArray[messageArray.length-1];
+            console.log("cure", $scope.currentUser.username);
+            message.username = $scope.currentUser.username;
             console.log("messageeee", message);
 
             $scope.conversation.messages.push(message); 
@@ -94,10 +113,16 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
     socket.on('new:message', function(result) {
       console.log("message arrived");
       var messageArray = result.messages;
+      _.filter(result.members, function(member) {
+        return member._id != $scope.currentUserId;
+      });
+      var userToSend = result.members;
+      console.log("ddddddddddd", userToSend)
       var message = messageArray[messageArray.length-1];
       $scope.playMessage();
 
       if($scope.conversationId == result._id) {
+        console.log("MMIILAANA : ", message);
         $scope.conversation.messages.push(message);
       }
     });

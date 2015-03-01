@@ -1,4 +1,5 @@
 var Conversation = require('../models/conversation');
+var _ = require('underscore');
 
 module.exports = function(socket) {
 	socket.on('current:user', function(currentUserId) {
@@ -11,7 +12,6 @@ module.exports = function(socket) {
 
 	socket.on('send-new:message', function(data, callback) {
 		console.log("aaqqq", data);
-		var sendTo = sockets[data.to[0]._id];
 		var messageData = {
 			id: data.conversationId,
 			currentUserId: data.currentUserId,
@@ -22,9 +22,14 @@ module.exports = function(socket) {
 			if(err) {
 				callback(err, null);
 			} else if(message) {
-
-				socket.broadcast.to(sendTo).emit('new:message', message);
-				callback(null, message);
+				 Conversation.findOne(message).populate('messages.author', 'username email').exec(function (err, message) {
+				   _.each(data.to, function(member) {
+					   var sendTo = sockets[member._id];
+				 	   
+				 	   socket.broadcast.to(sendTo).emit('new:message', message);
+				     callback(null, message);  
+				   });
+    		 });
 			}
 		});
 	});

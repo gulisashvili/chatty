@@ -14,6 +14,15 @@ angular.module('Chatty')
             cb(data, status, headers, config);
           });
       },
+      getConversationById: function(id, cb) {
+        $http.get('/api/v1/conversation/' + id).
+          success(function(data, status, headers, config) {
+            cb(data, status, headers, config);
+          }).
+          error(function(data, status, headers, config) {
+            cb(data, status, headers, config);
+          });                
+      },
       createConversation: function(members, cb) {
         $http.post('/api/v1/conversation/create/new/conversation', {members: members}).
           success(function(data, status, headers, config) {

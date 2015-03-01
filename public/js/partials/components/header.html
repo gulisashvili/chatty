@@ -2,12 +2,6 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="#">
         
         <span class="logo-text">
@@ -20,11 +14,11 @@
       <div class="navbar-form navbar-left" role="search">
 
         <div class="form-group search-user">
-          <input type="text" class="form-control" ng-model="searchUserVal" ng-focus="searchUser(searchUserVal)" ng-change="searchUser(searchUserVal)" placeholder="search user">
+          <input type="text" class="form-control" ng-model="searchUserVal" ng-focus="searchUser(searchUserVal)" ng-change="searchUser(searchUserVal)" placeholder="search user" ng-blur="userResult = false">
         </div>
         <div ng-show="userResult" class="search-user-results">
           <ul class="list-group">
-            <li class="list-group-item" ng-click="addContact(userResult)" style="color: #000;"> {{ userResult.username }} - {{ userResult.email }} </li>
+            <li class="list-group-item" ng-mousedown="addContact(userResult)" style="color: #000;"> {{ userResult.username }} - {{ userResult.email }} </li>
           </ul>
         </div>
       
