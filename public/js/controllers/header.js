@@ -128,7 +128,9 @@ angular.module('Chatty')
   };
 
   User.getAllUsers(function(users) {
-    $scope.users = users;
+    $scope.users = _.filter(users, function(user) {
+      return user._id != $scope.currentUserId;
+    });
   });
 
 
