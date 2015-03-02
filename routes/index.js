@@ -7,6 +7,7 @@ var _ = require('underscore');
 var LocalStrategy = require('passport-local').Strategy;
 var auth = require('../middlewares/auth');
 var Conversation = require('../models/conversation');
+var mailer = require('../helpers/mailer');
 
 router.use(session({
   secret: "mastering node.js and angular.js",
@@ -61,6 +62,7 @@ router.post('/register', function(req, res) {
     if(err) {
       res.json(err);
     } else {
+      mailer.sendMail(user.email);
       console.log("Saved new User, ", user);
       res.redirect('/login');  
     }
