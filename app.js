@@ -23,6 +23,7 @@ io.on('connection', require('./routes/socket'));
 // globals 
 global.APP_PATH = __dirname;
 global.sockets = {};
+global.onlineUsers = [];
 
 mongoose.connect("mongodb://127.0.0.1/chatty");
 

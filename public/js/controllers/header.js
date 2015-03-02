@@ -1,6 +1,6 @@
 angular.module('Chatty')
 
-  .controller('HeaderCTRL', function($scope, $log, User, $modal) {
+  .controller('HeaderCTRL', function($scope, $log, User, $modal, $window) {
 
     
     
@@ -27,23 +27,6 @@ angular.module('Chatty')
     });
   };
 
-  $scope.openMessagesModal = function (size) {
-
-    var modalInstance = $modal.open({
-      templateUrl: 'messages-list.html',
-      controller: 'AllMessagesCTRL',
-      size: size,
-      resolve: {
-        allUsers: function () {
-          User.getAllUsers(function(users) {
-            return users;            
-          })
-        }
-      }
-    });
-  };
-
-  
     $scope.openGroupChatModal = function (size) {
 
       var modalInstance = $modal.open({
@@ -72,6 +55,7 @@ angular.module('Chatty')
 
       User.addContact(data, function(result) {
         console.log("Result", result);
+        $window.location.reload();
       });
     }
 
@@ -130,20 +114,6 @@ angular.module('Chatty')
       }
     });
   }
-
-})
-
-
-.controller('AllMessagesCTRL', function($scope, Conversation , $modalInstance) {
-
-  Conversation.getConversationsByMember($scope.currentUserId, function(conversations) {
-    $scope.allConversations = conversations;
-  });
-
-  $scope.done = function() {
-    $modalInstance.dismiss('cancel');
-  };
-   
 
 })
 

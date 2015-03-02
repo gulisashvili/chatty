@@ -6,10 +6,11 @@
     <span class="user-name-text"> Users </span>
   </li>
   <li ng-repeat="user in userContacts track by $index"
-    ng-click="loadConversation(user._id)" class="list-group-item" ng-class="user._id">
+    ng-click="loadConversation(user._id); user.newMessage = false"
+      class="list-group-item is-offline" ng-class="{'is-online': user.isOnline}">
       <img src="http://placehold.it/40/40" class="img-circle">
     <span class="user-name-text"> {{ user.username }} </span>
-    <span class="new-message-label label label-danger pull-right animated bounce hidden"> new message </span>
+    <span ng-show="user.newMessage" class="new-message-label label label-danger pull-right animated infinite bounce"> new message </span>
   </li>  
 </ul>
 
@@ -22,8 +23,10 @@
   <li class="list-group-item disabled">
   	<span class="user-name-text"> Group Conversations</span>
   </li>
-  <li ng-repeat="conversation in groupConversations track by $index" class="list-group-item" ng-click="loadConversation(null,conversation._id)">
-  	<span ng-repeat="member in conversation.members track by $index"> {{ member.username }} </span>
+  <li ng-repeat="conversation in groupConversations track by $index" class="list-group-item" ng-click="loadConversation(null,conversation._id); conversation.newMessage = false">
+    <img src="http://placehold.it/40/40" class="img-circle">
+  	<span class="user-name-text" ng-repeat="member in conversation.members track by $index"> {{ member.username }} </span>
+     <span ng-show="conversation.newMessage" class="new-message-label label label-danger pull-right animated infinite bounce"> new message </span>
   </li>
 </ul>
 

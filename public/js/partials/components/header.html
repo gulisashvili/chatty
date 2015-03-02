@@ -25,9 +25,6 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="" ng-click="openMessagesModal('md')" class="glyphicon glyphicon-envelope"></a>
-          </li>
-          <li>
             <a href="" ng-click="open('md')" class="glyphicon glyphicon-th-list"></a>
           </li>
 
@@ -77,45 +74,6 @@
   </script>
 
 <!-- End of Users Modal -->
-
-
-<!-- Messages Modal -->
-
-  <script type="text/ng-template" id="messages-list.html">
-    <div class="messages-list-wrapper clearfix">
-      <div class="modal-header">
-        <h3 class="modal-title"> Messages </h3>
-      </div>
-    
-      <div class="modal-body">
-        
-        <div class="media" ng-repeat="conversation in allConversations track by $index">
-          <div class="media-left">
-            <a href="#">
-              <img class="media-object img-circle" src="http://placehold.it/70/70" />
-            </a>
-          </div> 
-          <div class="media-body">
-            <h4 class="media-heading"> {{ conversation.members[0].username }}</h4>
-              <span>
-                {{ conversation.messages[conversation.messages.length-1].message }}
-              </span>
-          </div>
-        
-        </div> 
-
-      
-      </div>
-    
-      <div class="modal-footer">
-        <button class="btn btn-warning" ng-click="done()"> Done </button>
-      </div>
-  
-    </div>
-
-  </script>
-
-<!-- End of Messages Modal -->
 
 
 <!-- GroupChat Modal -->

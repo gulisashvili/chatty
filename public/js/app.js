@@ -12,16 +12,20 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
         $rootScope.currentUserId = user._id;
         $rootScope.conversations = {};
         
-        socket.emit('current:user', $rootScope.currentUserId);
-        
         User.getUserContacts($rootScope.currentUserId, function(data) {
           $rootScope.userContacts = data;
+          socket.emit('current:user', $rootScope.currentUserId, function(err, onlineUsers) {
+            _.each($rootScope.userContacts, function(contact) {
+              _.each(onlineUsers, function(userId) {
+                if(contact && contact._id == userId) contact.isOnline = true;
+              });
+            });
+          });
         });
 
 
         Conversation.getGroupConversationsByMember($rootScope.currentUserId, function(conversations) {
           $rootScope.groupConversations = conversations;
-          console.log("dzoia ", $rootScope.groupConversations);
         });
       
       });
@@ -37,7 +41,6 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
 
     $scope.loadConversation = function(userID, conversationId) {
       if(!userID && conversationId) {
-        console.log("hrere we go")
         Conversation.getConversationById(conversationId, function(data) {
           $scope.conversations[data._id] = data;
           $scope.conversation = $scope.conversations[data._id];
@@ -45,19 +48,16 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
           $scope.data.to = $scope.conversation.members.filter(function(user) {
             return user._id != $scope.currentUserId;
           });
-          console.log('conv', $scope.conversation)
           $scope.loadChat = true;
 
         });
       } else {
-        console.log("arrr", $scope.conversationsArr)
           var data = [];  
           $scope.data.to = userID;    
           
           data.push($scope.currentUserId, userID);
 
           Conversation.getConversation(data, function(data) {
-            console.log("dattt", data);
 
             $scope.conversations[data._id] = data;
             $scope.conversation = $scope.conversations[data._id];
@@ -66,7 +66,6 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
             $scope.data.to = $scope.conversation.members.filter(function(user) {
               return user._id != $scope.currentUserId;
             });
-            console.log("after, ", $scope.data.to)
             $scope.loadChat = true;
 
     	    }); 
@@ -82,16 +81,13 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
           newMessage: $scope.data.newMessage,
           to: $scope.data.to
         };
-        console.log("message to sent ", data);
         socket.emit('send-new:message', data, function(error, result) {
           if(error) {
             alert("something went wrong");
           } else if(result) {
             var messageArray = result.messages;
             var message = messageArray[messageArray.length-1];
-            console.log("cure", $scope.currentUser.username);
             message.username = $scope.currentUser.username;
-            console.log("messageeee", message);
 
             $scope.conversation.messages.push(message); 
             $scope.data.newMessage = '';
@@ -111,18 +107,24 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
     };
 
     socket.on('new:message', function(result) {
-      console.log("message arrived");
       var messageArray = result.messages;
       _.filter(result.members, function(member) {
         return member._id != $scope.currentUserId;
       });
       var userToSend = result.members;
-      console.log("ddddddddddd", userToSend)
       var message = messageArray[messageArray.length-1];
       $scope.playMessage();
+      _.each($scope.userContacts, function(user) {
+        if( user.username == message.author.username && $scope.data.to != message.author._id && result.members.length < 3)
+          user.newMessage = true;
+      });
+      _.each($scope.groupConversations, function(conversation) {
+        if(conversation._id == result._id && result.members.length > 2) {
+          conversation.newMessage = true;
+        }
+      });
 
       if($scope.conversationId == result._id) {
-        console.log("MMIILAANA : ", message);
         $scope.conversation.messages.push(message);
       }
     });
@@ -132,7 +134,21 @@ angular.module('Chatty', ['ngRoute','ui.bootstrap'])
     });
 
 
+    socket.on('is:online', function(userId) {
+      
+      _.each($scope.userContacts, function(contact) {
+        if(contact._id == userId) contact.isOnline = true;
+      });
+    
+    });
 
+    socket.on('is:offline', function(userId) {
+      
+      _.each($scope.userContacts, function(contact) {
+        if(contact._id == userId) contact.isOnline = false;
+      });
+          
+    });
 
 
   });
